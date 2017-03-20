@@ -14,20 +14,37 @@ xrdb -merge ~/.Xdefaults &
 # Start a window compositor. This ensures Google Chrome paints correctly.
 xcompmgr -n &
 
+# start the keyring daemon
+eval $(gnome-keyring-daemon -s)
+export GNOME_KEYRING_CONTROL
+export SSH_AUTH_SOCK
+
 # Start the system tray
-tray &
+#tray &
+
+#gnome-settings-daemon &
+
+stalonetray &
+nm-applet --sm-disable &
 
 # Start two terminals
-gnome-terminal &
-gnome-terminal &
+#gnome-terminal &
+#gnome-terminal &
 
 # Start a browser
 google-chrome &
+firefox &
+
+# software centre authentication
+/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
 
 # Start screensaver
 # Kill gnome-screensaver if started by default
 killall gnome-screensaver &
 xscreensaver -no-splash &
+
+# set up screen
+feh --bg-fill  ~/.xmonad/mountain.jpg
 
 # Start sound server
 pulseaudio --start &
